@@ -2,12 +2,12 @@
 # Flamingo : Fix Your Grammar
 
 This is an editable script for a education game that fix someone's grammar
+This branch is for you who wants to contribute
 
 ## Concept
 
 A flamingo as a character that walks around the map to find a quest that give a question to solve english question
-
-
+if you want to edit script here make sure to fit our concept
 
 
 ## Tech Stack
