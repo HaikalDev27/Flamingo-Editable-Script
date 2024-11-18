@@ -20,10 +20,9 @@ public class Interactable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isRange && input.GetKeyDown(interactKey))
+        if (isRange && Input.GetKeyDown(interactKey))
         {
             Action.Invoke();
-            interactB.buttonPressed = false;
             canInteract.SetActive(false);
             FindFirstObjectByType<AudioManager>().Play("Interact");        
         }
