@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+    public Dialogue dialogue;
+
+    public void TriggerDialogue(){
+        FindFirstObjectByType<DialogueController>().StartDialogue(dialogue);
     }
 }
