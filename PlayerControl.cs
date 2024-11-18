@@ -13,7 +13,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private LayerMask gdLayerMask;
     public bool canMove;
     bool isMoving;
-    public AudioSource walkSfx;
+    [SerializeField] AudioSource walkSfx;
+    [SerializeField] AudioSource jumpSfx;
 
     [Header("Input")]
     [SerializeField] KeyCode pause;
@@ -43,7 +44,7 @@ public class PlayerControl : MonoBehaviour
 
             if (IsGrounded () && Input.GetKeyDown (KeyCode.Space)) {
 	    		rb.linearVelocity = Vector2.up * jf;
-                FindFirstObjectByType<AudioManager>().Play("Jump");
+                jumpSfx.Play();
 		    }
         }
 
