@@ -8,13 +8,12 @@ public class Interactable : MonoBehaviour
     public bool isRange;
     public KeyCode interactKey;
     public UnityEvent Action;
-    public Animator indicator;
-    public GameObject canInteract;
+    public GameObject indicator;
 
     // Start is called before the first frame update
     void Start()
     {
-        indicator = GetComponent<Animator>();
+        
     }
 
     // Update is called once per frame
@@ -23,8 +22,6 @@ public class Interactable : MonoBehaviour
         if (isRange && Input.GetKeyDown(interactKey))
         {
             Action.Invoke();
-            canInteract.SetActive(false);
-            FindFirstObjectByType<AudioManager>().Play("Interact");        
         }
     }
 
@@ -32,7 +29,7 @@ public class Interactable : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             isRange = true;
-            indicator.SetBool("isRange", true);
+            indicator.SetActive(true);
         }
     }
 
@@ -40,7 +37,7 @@ public class Interactable : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             isRange = false;
-            indicator.SetBool("isRange", false);
+            indicator.SetActive(false);
         }
     }
 }
