@@ -19,6 +19,7 @@ public class PlayerControl : MonoBehaviour
     [Header("Input")]
     [SerializeField] KeyCode pause;
     [SerializeField] Interactable interactable;
+    public float point;
 
     [Header("UI")]
     [SerializeField] GameObject pauseMenu;
