@@ -19,13 +19,17 @@ public class QuestionPanel : MonoBehaviour
     public GameObject questionParent;
 
     private QuestionSystem currentQuestionSystem;
-    private int currentQuestionIndex = 0;
-    private PlayerControl point;
+    public int currentQuestionIndex = 0;
+    public PlayerControl point;
 
     private void Awake(){
         if (Instance == null)
         {
             Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -39,7 +43,7 @@ public class QuestionPanel : MonoBehaviour
     // Method untuk mengonfirmasi
     public void OnConfirmYes(){
         confirmationPanel.SetActive(false);
-        currentQuestionSystem.StartQuiz();
+        currentQuestionSystem.FirstQuestion();
     }
 
     // Method untuk menutup panel konfirmasi
@@ -50,6 +54,7 @@ public class QuestionPanel : MonoBehaviour
     // Method untuk menampilkan pertanyaan
     public void DisplayQuestion(QuestionSystem questionSystem){
         quizPanel.SetActive(true);
+        currentQuestionSystem.canStart = false;
 
         // Pastikan index saat ini tidak melebihi jumlah pertanyaan
         if (currentQuestionIndex < questionSystem.questions.Length)
@@ -88,7 +93,7 @@ public class QuestionPanel : MonoBehaviour
         if (index == currentQuestion.CorrectAnswerIndex)
         {
             Debug.Log("Jawaban Benar!");
-            point.point++; 
+            point.point++;
             
             StartCoroutine(CorrectAnswerDelay(questionSystem));
         }
@@ -100,7 +105,7 @@ public class QuestionPanel : MonoBehaviour
     }
 
     private IEnumerator CorrectAnswerDelay(QuestionSystem questionSystem){
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
 
         currentQuestionIndex++;
 
@@ -118,15 +123,24 @@ public class QuestionPanel : MonoBehaviour
     IEnumerator FailedDelay (){
         FailedPanel.SetActive(true);
         quizPanel.SetActive(false);
-        yield return new WaitForSeconds(1.0f);
-        questionParent.SetActive(false);
+        currentQuestionSystem.canStart = true;
+        yield return new WaitForSeconds(5.0f);
+        quizPanel.SetActive(false);
+        currentQuestionIndex = 0;
     }
 
     IEnumerator SuccessDelay (){
         SuccessPanel.SetActive(true);
         quizPanel.SetActive(false);
-        yield return new WaitForSeconds(1.0f);
-        questionParent.SetActive(false);
+        yield return new WaitForSeconds(5.0f);
+        quizPanel.SetActive(false);
+        currentQuestionSystem.IsCompleted = true;
+        currentQuestionSystem.canStart = false;
+        currentQuestionIndex = 0;
     }
 
+    public void selfDestruct(){
+        currentQuestionSystem.IsCompleted = true;
+        currentQuestionSystem.canStart = false;
+    }
 }
