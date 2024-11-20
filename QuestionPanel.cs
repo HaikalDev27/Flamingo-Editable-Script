@@ -38,6 +38,7 @@ public class QuestionPanel : MonoBehaviour
         currentQuestionSystem = questionSystem;
         confirmationPanel.SetActive(true);
         confirmationText.text = $"Apakah Anda siap menjawab quiz dari {questionSystem.npcName}?";
+        StartCoroutine(PlayTheme());
     }
 
     // Method untuk mengonfirmasi
@@ -125,6 +126,7 @@ public class QuestionPanel : MonoBehaviour
         quizPanel.SetActive(false);
         currentQuestionSystem.canStart = true;
         currentQuestionIndex = 0;
+        StartCoroutine(StopTheme());
         yield return new WaitForSeconds(5.0f);
         FailedPanel.SetActive(false);
     }
@@ -132,6 +134,7 @@ public class QuestionPanel : MonoBehaviour
     IEnumerator SuccessDelay (){
         SuccessPanel.SetActive(true);
         quizPanel.SetActive(false);
+        StartCoroutine(StopTheme());
         yield return new WaitForSeconds(5.0f);
         SuccessPanel.SetActive(false);
         currentQuestionSystem.IsCompleted = true;
@@ -142,5 +145,18 @@ public class QuestionPanel : MonoBehaviour
     public void selfDestruct(){
         currentQuestionSystem.IsCompleted = true;
         currentQuestionSystem.canStart = false;
+        StartCoroutine(StopTheme());
+    }
+
+    IEnumerator PlayTheme(){
+        FindFirstObjectByType<AudioManager>().Stop("Main Theme");
+        yield return new WaitForSeconds(1f);
+        FindFirstObjectByType<AudioManager>().Play("Quiz Theme");
+    }
+
+    IEnumerator StopTheme(){
+        FindFirstObjectByType<AudioManager>().Stop("Quiz Theme");
+        yield return new WaitForSeconds(1f);
+        FindFirstObjectByType<AudioManager>().Play("Main Theme");
     }
 }

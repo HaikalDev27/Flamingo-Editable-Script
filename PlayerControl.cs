@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -17,13 +18,11 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] AudioSource jumpSfx;
 
     [Header("Input")]
-    [SerializeField] KeyCode pause;
     [SerializeField] Interactable interactable;
     public float point;
 
     [Header("UI")]
-    [SerializeField] GameObject pauseMenu;
-    [SerializeField] GameObject QuestionBar;
+    [SerializeField] Text ScoreUI;
 
     void Start(){
         rb = GetComponent<Rigidbody2D>();
@@ -33,6 +32,7 @@ public class PlayerControl : MonoBehaviour
 
     void Update(){
         float horiz = Input.GetAxisRaw("Horizontal");
+
 
         if (canMove)
         {
@@ -66,6 +66,7 @@ public class PlayerControl : MonoBehaviour
         {
             walkSfx.Stop();
         }
+        ScoreUI.text = "Score : " + (point * 10).ToString();
     }
     
     //this code is to check which one is defined as ground
