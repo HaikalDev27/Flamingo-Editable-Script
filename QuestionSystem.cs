@@ -19,6 +19,14 @@ public class QuestionSystem : MonoBehaviour {
     [SerializeField] public bool canStart = true;
     [SerializeField] public TextMesh indicator;
 
+    void Update(){
+        if (IsCompleted == true){
+            indicator.text = "Quiz ini telah selesai";
+        } else {
+            indicator.text = "Tekan E untuk berinteraksi";
+        }
+    }
+
     public void StartQuiz(){
 
         if (QuestionPanel.Instance == null)
@@ -33,15 +41,11 @@ public class QuestionSystem : MonoBehaviour {
             return;
         }
 
-        if (IsCompleted == true){
-            indicator.text = "Quiz ini telah selesai";
-        }
-
         if (canStart == true){
             Debug.Log($"{npcName} mulai quiz!");
             QuestionPanel.Instance.ShowConfirmation(this);
         }
-        indicator.text = "Tekan E untuk berinteraksi";
+        
     }
 
     public void FirstQuestion(){

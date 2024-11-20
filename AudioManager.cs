@@ -9,17 +9,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
 
     // Start is called before the first frame update
-    void Awake() {
-
-        if (instance == null) //if an object with this component script
-            instance = this; //then leave it like so
-        else
-        {
-            Destroy(gameObject); //but if it's not then destroy this object
-            return;
-        }
-
-        DontDestroyOnLoad(gameObject); //because this will be exist in main scene but not in any other so we wont destroy this object on main scene while we'll create a new one in other scene
+    void Awake() { 
         
         foreach (Sound s in sounds) //Volume mixer in setting UI
         {

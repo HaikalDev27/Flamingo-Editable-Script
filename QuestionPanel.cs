@@ -124,16 +124,16 @@ public class QuestionPanel : MonoBehaviour
         FailedPanel.SetActive(true);
         quizPanel.SetActive(false);
         currentQuestionSystem.canStart = true;
-        yield return new WaitForSeconds(5.0f);
-        quizPanel.SetActive(false);
         currentQuestionIndex = 0;
+        yield return new WaitForSeconds(5.0f);
+        FailedPanel.SetActive(false);
     }
 
     IEnumerator SuccessDelay (){
         SuccessPanel.SetActive(true);
         quizPanel.SetActive(false);
         yield return new WaitForSeconds(5.0f);
-        quizPanel.SetActive(false);
+        SuccessPanel.SetActive(false);
         currentQuestionSystem.IsCompleted = true;
         currentQuestionSystem.canStart = false;
         currentQuestionIndex = 0;
