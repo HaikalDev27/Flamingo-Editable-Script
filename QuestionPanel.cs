@@ -125,8 +125,19 @@ public class QuestionPanel : MonoBehaviour
         FailedPanel.SetActive(true);
         quizPanel.SetActive(false);
         currentQuestionSystem.canStart = true;
-        currentQuestionIndex = 0;
         StartCoroutine(StopTheme());
+        switch (currentQuestionIndex){
+            case 2:
+                currentQuestionIndex = 1;
+                point.point -= 2;
+                break;
+            case 1:
+                currentQuestionIndex = 0;
+                point.point--;
+                break;
+            default:
+                break;
+        }
         yield return new WaitForSeconds(5.0f);
         FailedPanel.SetActive(false);
     }

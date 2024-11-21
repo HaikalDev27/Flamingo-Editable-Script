@@ -8,9 +8,11 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public KeyCode pauseKey;
+    public bool isActive;
+    public bool canPause;
 
     void Update(){
-        if(Input.GetKeyDown(pauseKey)){
+        if(Input.GetKeyDown(pauseKey) && canPause){
             if(pauseMenu.activeInHierarchy){
                 pauseMenu.SetActive(false);
                 Time.timeScale = 1f;
@@ -19,6 +21,15 @@ public class PauseMenu : MonoBehaviour
                 Time.timeScale = 0f;
             }
         }
+
+        if(isActive){
+            canPause = false;
+            return;
+        }
+    }
+
+    public void Active(){
+        isActive = true;
     }
 
     public void Back(){
